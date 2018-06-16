@@ -1,0 +1,18 @@
+#Python script to list all the data sets available on our project.
+
+import logging
+
+from google.cloud import bigquery
+from datetime import datetime, timedelta
+
+client = bigquery.Client(project='e-commerce-mining')
+datasets = list(client.list_datasets())
+
+project = client.project
+
+if datasets:
+    print('Datasets in project {}:'.format(project))
+    for dataset in datasets:  # API request(s)
+        print('\t{}'.format(dataset.dataset_id))
+else:
+    print('{} project does not contain any datasets.'.format(project))
